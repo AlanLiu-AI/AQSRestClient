@@ -254,7 +254,7 @@ if __name__ == '__main__':
     CommonLogging.configure(app_config.logFile)
 
     if app_config.base_url_second is None:
-        connectorPropagator = ConnectorPropagatorOnSecondSync(app_config.token, app_config.base_url)
+        connectorPropagator = ConnectorPropagator(app_config.token, app_config.base_url)
         connectorPropagator.populate()
     else:
         connectorFirstSyncPropagator = ConnectorPropagator(app_config.token, app_config.base_url)
