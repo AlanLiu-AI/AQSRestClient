@@ -108,7 +108,7 @@ class ConnectorPropagator(object):
         self.sample_client.put_domain_object('exchangeconfigurations', exchange_configuration)
         self.logger.info('populate_exchange_configuration is done')
 
-    def populate_vertical_profile_csv(self, sampling_location, vertical_profile_csv):
+    def populate_vertical_profile_csv(self, sampling_location, vertical_profile_csv, tz_offset='-08:00'):
         self.sample_client.delete_observations({'samplingLocationIds': sampling_location['id']})
         self.sample_client.delete_field_visits_by_sampling_location_id(sampling_location['id'])
 
@@ -127,7 +127,8 @@ class ConnectorPropagator(object):
 
         self.sample_client.import_file('services/import/verticalprofiledata', vertical_profile_csv, params={
             'activityId': activity['id'],
-            'samplingLocationIds': sampling_location['id']
+            'samplingLocationIds': sampling_location['id'],
+            'timeZoneOffset': tz_offset
         })
 
     def populate_csv_observations(self, sampling_location, csv_data_pattern_on_location):
