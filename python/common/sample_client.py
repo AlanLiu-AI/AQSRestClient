@@ -126,11 +126,15 @@ class SampleClient(object):
         return sampling_location
 
     def get_or_create_field_visit(self, field_visit_overrides):
-        assert 'customId' in field_visit_overrides, 'customId is required from field_visit_override'
+        # assert 'customId' in field_visit_overrides, 'customId is required from field_visit_override'
         assert 'samplingLocation' in field_visit_overrides, 'samplingLocation is required from field_visit_override'
 
-        field_visit = self.get_domain_object_by_custom_id('fieldvisits', field_visit_overrides['customId'])
-        if field_visit is None:
+        search_result = self.get_search_result('fieldvisits', {
+            'samplingLocationIds': field_visit_overrides['samplingLocation']['id']
+        })
+        if len(search_result['domainObjects']) > 0:
+            field_visit = search_result['domainObjects'][0]
+        else:
             field_visit_to_post = SampleClient.make_field_visit(field_visit_overrides)
             field_visit = self.post_domain_object('fieldvisits', field_visit_to_post)
             self.logger.debug('Posted FieldVisit %s', field_visit)
@@ -183,7 +187,6 @@ class SampleClient(object):
         sampling_location = {
             'customId': custom_id,
             'name': custom_id,
-            'type': 'RIVER',
             'latitude': '49.2061028',
             'longitude': '-123.1504412',
             'horizontalDatum': 'NAD83',
