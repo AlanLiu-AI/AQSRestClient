@@ -67,6 +67,7 @@ class ConnectorPropagator(object):
         exchange_configuration['settings'][:] = []
         exchange_configuration['samplingLocationMappings'][:] = []
         exchange_configuration['observationMappings'][:] = []
+        exchange_configuration['unitMappings'][:] = []
         return self.sample_client.put_domain_object('exchangeconfigurations', exchange_configuration)
 
     def populate_exchange_configuration(self, external_location_dict, observation_map_tuple):
@@ -90,20 +91,31 @@ class ConnectorPropagator(object):
         for key, value in setting_key_values.items():
             exchange_configuration['settings'].append({'key': key, 'value': value})
 
+        depth_export_unit = self.sample_client.get_domain_object_by_custom_id('units', 'ft')
+        exchange_configuration['settings'].append({'key': 'DEPTH_EXPORT_UNIT', 'depthUnit': depth_export_unit})
+
         for sampling_location_id, aqts_location in external_location_dict.items():
             exchange_configuration['samplingLocationMappings'].append({
                 'samplingLocation': {'id': sampling_location_id},
                 'externalLocation': aqts_location
             })
 
-        for observed_property_custom_id, aqts_parameter_type, aqts_parameter_unit in observation_map_tuple:
+        unit_mappings_dict = {}
+        for observed_property_custom_id, aqts_parameter_type, aqs_unit, aqts_parameter_unit in observation_map_tuple:
             observed_property = self.sample_client.get_domain_object_by_custom_id(
                 'observedproperties', observed_property_custom_id, raise_error_when_custom_id_is_unused=True)
+            unit = self.sample_client.get_domain_object_by_custom_id('units', aqs_unit, raise_error_when_custom_id_is_unused=True)
             exchange_configuration['observationMappings'].append({
                 'observedProperty': {'id': observed_property['id']},
                 'externalObservedProperty': aqts_parameter_type,
-                'externalUnit': aqts_parameter_unit
+                'unit': {'id': unit['id']}
             })
+            unit_mappings_dict[aqs_unit] = {
+                'unit': unit,
+                'externalUnit': aqts_parameter_unit
+            }
+        for aqs_unit, unit_mapping in unit_mappings_dict.items():
+            exchange_configuration['unitMappings'].append(unit_mapping)
 
         self.sample_client.put_domain_object('exchangeconfigurations', exchange_configuration)
         self.logger.info('populate_exchange_configuration is done')
@@ -113,8 +125,7 @@ class ConnectorPropagator(object):
         self.sample_client.delete_field_visits_by_sampling_location_id(sampling_location['id'])
 
         field_visit_overrides = {
-            'samplingLocation': sampling_location,
-            'customId': sampling_location['customId'] + '_FV_001'
+            'samplingLocation': sampling_location
         }
         field_visit = self.sample_client.get_or_create_field_visit(field_visit_overrides)
 
@@ -188,18 +199,18 @@ class ConnectorPropagator(object):
 
     def get_observation_map_tuple(self):
         return {
-                ('Ammonia', 'NH4NH3_dis', 'mg/l'),
-                ('Battery Voltage', 'VB', 'V'),
-                ('Chlorophyll a', 'WY', 'ug/l'),
-                ('DO (Concentration)', 'WO', 'mg/l'),
-                ('DO (Saturation)', 'WX', '%'),
-                ('ORP', 'ORP', 'mV'),
-                ('pH', 'PH', 'pH Units'),
-                ('Specific conductance', 'SpCond', 'uS/cm'),
-                ('Temperature', 'TW', 'degF'),
-                ('Total Dissolved Solids', 'TDS', 'mg/l'),
-                ('Total suspended solids', 'TSS', 'mg/l'),
-                ('Turbidity', 'WTNTU', '_NTU'),
+                ('Ammonia', 'NH4NH3_dis', 'mg/l', 'mg/l'),
+                ('Battery Voltage', 'VB', 'V', 'V'),
+                ('Chlorophyll a', 'WY', 'ug/l', 'ug/l'),
+                ('DO (Concentration)', 'WO', 'mg/l', 'mg/l'),
+                ('DO (Saturation)', 'WX', '%', '%'),
+                ('ORP', 'ORP', 'mV', 'mV'),
+                ('pH', 'PH', 's.u.', 'pH Units'),
+                ('Specific conductance', 'SpCond', 'uS/cm', 'uS/cm'),
+                ('Temperature', 'TW', 'degF', 'degF'),
+                ('Total Dissolved Solids', 'TDS', 'mg/l', 'mg/l'),
+                ('Total suspended solids', 'TSS', 'mg/l', 'mg/l'),
+                ('Turbidity', 'WTNTU', 'NTU', '_NTU'),
             }
 
     def populate(self):
