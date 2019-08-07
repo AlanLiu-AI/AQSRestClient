@@ -72,7 +72,8 @@ def main():
     """Exercise bucket_exists()"""
 
     # Assign this value before running the program
-    bucket_name = 'linko-online-s3-dev'
+    #bucket_name = 'linko-online-s3-dev'
+    bucket_name = 'linko-online-s3-auto'
 
     # Set up logging
     logging.basicConfig(level=logging.DEBUG,
