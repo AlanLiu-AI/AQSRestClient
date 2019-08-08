@@ -4,29 +4,32 @@ import os
 ET.register_namespace('', 'http://www.liquibase.org/xml/ns/dbchangelog')
 ET.register_namespace('ext', 'http://www.liquibase.org/xml/ns/dbchangelog-ext')
 ET.register_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-ET.register_namespace('schemaLocation', 'http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd')
-
+ET.register_namespace('schemaLocation',
+                      'http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd')
 
 deprecated_tables = ['tCollectionMethod', 'tCollectionMethodType', 'tCopyOfRecord', 'tCopyOfRecordCertificate',
-                         'tCtsEventType', 'tDataFormat', 'tDataOptionality', 'tDataSource',
-                         'tDataSourceCollectionMethod', 'tDataSourceCtsEventType',
-                         'tDataSourceMonitoringPoint', 'tDataSourceParameter', 'tDataSourceUnit',
-                         'tFogExtractor', 'tFileType', 'tFileStore', 'tFileStoreData', 'tFileVersion', 'tFileVersionField',
-                         'tFileVersionTemplate', 'tFileVersionTemplateField', 'tLimitBasis', 'tLimitType',
-                         'tMonitoringPoint', 'tMonitoringPointParameter', 'tMonitoringPointParameterLimit',
-                         'tImportTempFile', 'tParameter', 'tParameterGroup', 'tParameterGroupParameter',
-                         'tReportElementCategory', 'tReportElementType', 'tReportFile', 'tReportPackage',
-                         'tReportPackageElementCategory', 'tReportPackageElementType', 'tReportPackageTemplate',
-                         'tReportPackageTemplateAssignment', 'tReportPackageTemplateElementCategory', 'tReportPackageTemplateElementType',
-                         'tReportSample', 'tReportStatus', 'tRepudiationReason', 'tSample', 'tSampleFrequency',
-                         'tSampleRequirement', 'tSampleResult', 'tSignatoryRequest', 'tSignatoryRequestStatus', 'tSystemField']
+                     'tCtsEventType', 'tDataFormat', 'tDataOptionality', 'tDataSource',
+                     'tDataSourceCollectionMethod', 'tDataSourceCtsEventType',
+                     'tDataSourceMonitoringPoint', 'tDataSourceParameter', 'tDataSourceUnit',
+                     'tFogExtractor', 'tFileType', 'tFileStore', 'tFileStoreData', 'tFileVersion', 'tFileVersionField',
+                     'tFileVersionTemplate', 'tFileVersionTemplateField', 'tLimitBasis', 'tLimitType',
+                     'tMonitoringPoint', 'tMonitoringPointParameter', 'tMonitoringPointParameterLimit',
+                     'tImportTempFile', 'tParameter', 'tParameterGroup', 'tParameterGroupParameter',
+                     'tReportElementCategory', 'tReportElementType', 'tReportFile', 'tReportPackage',
+                     'tReportPackageElementCategory', 'tReportPackageElementType', 'tReportPackageTemplate',
+                     'tReportPackageTemplateAssignment', 'tReportPackageTemplateElementCategory',
+                     'tReportPackageTemplateElementType',
+                     'tReportSample', 'tReportStatus', 'tRepudiationReason', 'tSample', 'tSampleFrequency',
+                     'tSampleRequirement', 'tSampleResult', 'tSignatoryRequest', 'tSignatoryRequestStatus',
+                     'tSystemField']
 
 
 def reformat_xml(xml_file):
     with open(xml_file) as f:
         lines = f.readlines()
 
-    lines[0] = '<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">\n'
+    lines[
+        0] = '<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">\n'
     lines.insert(0, '<?xml version="1.1" encoding="UTF-8" standalone="no"?>\n')
 
     new_lines = []
@@ -74,44 +77,47 @@ def get_table_names(first_child_node):
     return table_names
 
 
+def is_change_set_deprecated(table_names):
+    for tableName in table_names:
+        for deprecated_table in deprecated_tables:
+            if deprecated_table.lower() == tableName.lower():
+                return True
+    return False
+
+
 def filter_file(input_file, dist_file, exclude):
     tree = ET.parse(input_file)
     root = tree.getroot()
 
-    for child in root:
-        first_grand_child = child[0]
+    removed_cnt = 0
+    for change_set in root[::-1]:
+        change_operation = change_set[0]
 
-        table_names = get_table_names(first_grand_child)
-
+        table_names = get_table_names(change_operation)
         if len(table_names) < 1:
-            print(child.tag, child.attrib, first_grand_child.tag, first_grand_child.attrib)
+            print(change_set.tag, change_set.attrib, change_operation.tag, change_operation.attrib)
             raise Exception('Cannot extract table names')
 
         # print(change_set_id, table_names)
-        if exclude:
-            should_exclude = False
-            for tableName in table_names:
-                if tableName in deprecated_tables and child in root:
-                    should_exclude = True
-                    break
-            if should_exclude:
-                print(dist_file, ' exclude this changeset on tables:', table_names)
-                root.remove(child)
-                continue
+
+        is_deprecated = is_change_set_deprecated(table_names)
+
+        if exclude == True and is_deprecated == True:
+            # print(dist_file, ' exclude this change set on tables:', table_names, change_operation.tag, change_operation.attrib)
+            removed_cnt = removed_cnt + 1
+            root.remove(change_set)
+        elif exclude == False and is_deprecated == False:
+            # print(dist_file, ' exclude this change set on tables:', table_names, change_operation.tag, change_operation.attrib)
+            removed_cnt = removed_cnt + 1
+            root.remove(change_set)
         else:
-            should_include = False
-            for tableName in table_names:
-                if tableName in deprecated_tables:
-                    should_include = True
-                    break
-            if not should_include:
-                root.remove(child)
-                print(dist_file, ' exclude this changeset on tables:', table_names)
-                continue
+            # print(dist_file, ' include this change set on tables:', table_names, change_operation.tag, change_operation.attrib)
+            removed_cnt = removed_cnt
 
     print()
     tree.write(dist_file)
     reformat_xml(dist_file)
+    return removed_cnt
 
 
 def beautify(input_file, dist_file):
@@ -130,16 +136,18 @@ def beautify(input_file, dist_file):
         child.set('id', change_set_id)
         # print(change_set_id, table_names)
 
-    print()
+    print("{} file has {} changeset".format(dist_file, len(root)))
     tree.write(dist_file)
     reformat_xml(dist_file)
 
 
 def reformat(input_file, target_file, exclude):
-    temp_file = target_file + ".raw"
-    filter_file(input_file, temp_file, exclude)
-    beautify(temp_file, target_file)
+    temp_file = "{}.raw".format(input_file)
+    removed_cnt = filter_file(input_file, temp_file, exclude)
+    print(removed_cnt)
+    print()
 
+    beautify(temp_file, target_file)
     os.remove(temp_file)
 
 

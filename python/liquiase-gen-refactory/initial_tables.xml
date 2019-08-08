@@ -1,0 +1,2253 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="alan.liu" id="createTable_tHauler">
+        <createTable tableName="tHauler">
+            <column autoIncrement="true" name="HaulerId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tHauler" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Name" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="AddressId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Phone" type="nvarchar(255)" />
+            <column name="Email" type="nvarchar(255)" />
+            <column defaultValueConstraintName="DF__tHauler__IsActiv__3F3159AB" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="Comments" type="nvarchar(2000)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tHauler_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column name="HaulerNumber" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramUser">
+        <createTable tableName="tOrganizationRegulatoryProgramUser">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramUserId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgramUser" />
+            </column>
+            <column name="UserProfileId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="InviterOrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="PermissionGroupId" type="int" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramUser_RegistrationDateTimeUtc" name="RegistrationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tOrganizationRegulatoryProgramUser_IsRegistrationApproved" defaultValueNumeric="0" name="IsRegistrationApproved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tOrganizationRegulatoryProgramUser_IsRegistrationDenied" defaultValueNumeric="0" name="IsRegistrationDenied" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tOrganizationRegulatoryProgramUser_IsEnabled" defaultValueNumeric="0" name="IsEnabled" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tOrganizationRegulatoryProgramUser_IsRemoved" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tOrganizationRegulatoryProgramUser_IsSignatory" defaultValueNumeric="0" name="IsSignatory" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramUser_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramExtractor">
+        <createTable tableName="tOrganizationRegulatoryProgramExtractor">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramExtractorId" type="int">
+                <constraints primaryKey="true" primaryKeyName="Pk_tOrganizationRegulatoryProgramExtractor" />
+            </column>
+            <column name="OrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ExtractorId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramExtractor_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tLookup">
+        <createTable tableName="tLookup">
+            <column autoIncrement="true" name="LookupId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tLookup" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="LookupType" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Code" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="CodeDescription" type="nvarchar(2000)" />
+            <column name="Comments" type="nvarchar(255)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tLookup_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tLookup__IsActiv__77DFC722" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tLookup__IsRemov__78D3EB5B" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tUserProfile">
+        <createTable tableName="tUserProfile">
+            <column autoIncrement="true" name="UserProfileId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="FirstName" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastName" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="TitleRole" type="nvarchar(250)" />
+            <column name="BusinessName" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="AddressLine1" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="AddressLine2" type="nvarchar(100)" />
+            <column name="CityName" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="ZipCode" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="JurisdictionId" type="int" />
+            <column name="PhoneExt" type="int" />
+            <column defaultValueConstraintName="DF_tUserProfile_IsAccountLocked" defaultValueNumeric="0" name="IsAccountLocked" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tUserProfile_IsAccountResetRequired" defaultValueNumeric="0" name="IsAccountResetRequired" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tUserProfile_IsIdentityProofed" defaultValueNumeric="0" name="IsIdentityProofed" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tUserProfile_IsInternalAccount" defaultValueNumeric="0" name="IsInternalAccount" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="OldEmailAddress" type="nvarchar(256)" />
+            <column name="TermConditionId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="TermConditionAgreedDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tUserProfile_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="Id" type="nvarchar(128)" >
+                <constraints primaryKey="true" primaryKeyName="PK_tUserProfile" />
+            </column>
+            <column name="Email" type="nvarchar(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="EmailConfirmed" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="PasswordHash" type="nvarchar(MAX)" />
+            <column name="SecurityStamp" type="nvarchar(MAX)" />
+            <column name="PhoneNumber" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column name="PhoneNumberConfirmed" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="TwoFactorEnabled" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="LockoutEndDateUtc" type="datetime" />
+            <column name="LockoutEnabled" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="AccessFailedCount" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="UserName" type="nvarchar(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="LockoutEnd" type="datetimeoffset" />
+            <column name="ConcurrencyStamp" type="nvarchar(255)" />
+            <column name="NormalizedEmail" type="nvarchar(255)" />
+            <column name="NormalizedUserName" type="nvarchar(255)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tUnit">
+        <createTable tableName="tUnit">
+            <column autoIncrement="true" name="UnitId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tUnit" />
+            </column>
+            <column name="Name" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column defaultValueConstraintName="DF_tUnit_IsFlowUnit" defaultValueNumeric="0" name="IsFlowUnit" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tUnit_IsRemoved" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tUnit_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column name="SystemUnitId" type="int" />
+            <column defaultValueConstraintName="DF_tUnit_IsAvailableToRegulatee" defaultValueNumeric="0" name="IsAvailableToRegulatee" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tUnit_IsReviewed" defaultValueNumeric="0" name="IsReviewed" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgram">
+        <createTable tableName="tOrganizationRegulatoryProgram">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgram" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatorOrganizationId" type="int" />
+            <column name="AssignedTo" type="nvarchar(50)" />
+            <column name="ReferenceNumber" type="nvarchar(50)" />
+            <column defaultValueConstraintName="DF_tOrganizationRegulatoryProgram_IsEnabled" defaultValueNumeric="0" name="IsEnabled" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tOrganizationRegulatoryProgram_IsRemoved" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgram_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tSiteAddress">
+        <createTable tableName="tSiteAddress">
+            <column autoIncrement="true" name="SiteAddressId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tSiteAddress" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="SiteId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="AddressId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tSiteAddress_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationSetting">
+        <createTable tableName="tOrganizationSetting">
+            <column autoIncrement="true" name="OrganizationSettingId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationSetting" />
+            </column>
+            <column name="OrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="SettingTemplateId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Value" type="nvarchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationSetting_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramModule">
+        <createTable tableName="tOrganizationRegulatoryProgramModule">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramModuleId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgramModule" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ModuleId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramModule_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tContactNumber">
+        <createTable tableName="tContactNumber">
+            <column autoIncrement="true" name="ContactNumberId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tContactNumber" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ContactId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="NumberType" type="nvarchar(20)" />
+            <column name="Number" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Extension" type="nvarchar(20)" />
+            <column name="Label" type="nvarchar(255)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tContactNumber_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramAddress">
+        <createTable tableName="tOrganizationRegulatoryProgramAddress">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramAddressId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgramAddress" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="AddressId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramAddress_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tJurisdiction">
+        <createTable tableName="tJurisdiction">
+            <column autoIncrement="true" name="JurisdictionId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tJurisdiction" />
+            </column>
+            <column name="CountryId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="StateId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Code" type="char(2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="ParentId" type="int" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tJurisdiction_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tContact">
+        <createTable tableName="tContact">
+            <column autoIncrement="true" name="ContactId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tContact" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Title" type="nvarchar(50)" />
+            <column name="CompanyName" type="nvarchar(100)" />
+            <column name="Salutation" type="nvarchar(50)" />
+            <column name="FirstName" type="nvarchar(50)" />
+            <column name="LastName" type="nvarchar(50)" />
+            <column name="AddressId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Label" type="nvarchar(255)" />
+            <column name="Comments" type="nvarchar(2000)" />
+            <column name="WebsiteAddress" type="nvarchar(255)" />
+            <column defaultValueConstraintName="DF__tContact__IsBusi__36D11DD4" defaultValueNumeric="0" name="IsBusiness" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tContact__IsRemo__37C5420D" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tContact_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramTag">
+        <createTable tableName="tOrganizationRegulatoryProgramTag">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramTagId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgramTag" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="TagId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramTag_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationType">
+        <createTable tableName="tOrganizationType">
+            <column autoIncrement="true" name="OrganizationTypeId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationType" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationType_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tTimeZone">
+        <createTable tableName="tTimeZone">
+            <column autoIncrement="true" name="TimeZoneId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tTimeZone" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="StandardAbbreviation" type="nvarchar(5)">
+                <constraints nullable="false" />
+            </column>
+            <column name="DaylightAbbreviation" type="nvarchar(5)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tTimeZone_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tCustomFieldDefinition">
+        <createTable tableName="tCustomFieldDefinition">
+            <column autoIncrement="true" name="CustomFieldId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tCustomFieldDefinition" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="AppliedToTable" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="FieldName" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="FieldDescription" type="nvarchar(MAX)" />
+            <column name="DataType" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tCustomFi__IsReq__6A85CC04" defaultValueNumeric="0" name="IsRequired" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tCustomFi__IsUni__6B79F03D" defaultValueNumeric="0" name="IsUnique" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="DefaultValueOrOptionalValues" type="nvarchar(MAX)" />
+            <column name="PreferredFormat" type="nvarchar(100)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tCustomFieldDefinition_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tCustomFi__IsRem__6C6E1476" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_AspNetUserRoles">
+        <createTable tableName="AspNetUserRoles">
+            <column name="UserId" type="nvarchar(128)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserRoles" />
+            </column>
+            <column name="RoleId" type="nvarchar(128)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserRoles" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tFogFacility">
+        <createTable tableName="tFogFacility">
+            <column name="OrganizationId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tFogFacility" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="SiteId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationAlias" type="nvarchar(254)" />
+            <column name="PumperId" type="int" />
+            <column name="AccountNumber" type="nvarchar(254)" />
+            <column name="MeterNumber" type="nvarchar(254)" />
+            <column name="SewerNumber" type="nvarchar(254)" />
+            <column defaultValueConstraintName="DF__tFogFacil__IsPer__51BA1E3A" defaultValueNumeric="0" name="IsPermitted" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="AnnualFee" type="float(53)" />
+            <column name="MonthlyFee" type="float(53)" />
+            <column name="EffectiveDateUtc" type="datetimeoffset" />
+            <column name="ApplicationDateUtc" type="datetimeoffset" />
+            <column name="DailyFlow" type="nvarchar(50)" />
+            <column defaultValueConstraintName="DF__tFogFacil__Batch__52AE4273" defaultValueNumeric="0" name="BatchDischarge" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="SeatingCapacity" type="nvarchar(254)" />
+            <column name="NumberMealsServed" type="nvarchar(254)" />
+            <column name="BillingRate" type="nvarchar(254)" />
+            <column defaultValueConstraintName="DF__tFogFacil__HasWo__53A266AC" defaultValueNumeric="0" name="HasWorldStone" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="ComplianceStatus" type="nvarchar(50)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tRegulatedFog_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="HaulerId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tWasteType">
+        <createTable tableName="tWasteType">
+            <column autoIncrement="true" name="WasteTypeId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tWasteType" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="WasteType" type="nvarchar(50)" />
+            <column name="WasteTypeDescription" type="nvarchar(255)" />
+            <column name="CostPerUnit" type="float(53)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tWasteType_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tWasteTyp__IsAct__00750D23" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tWasteTyp__IsRem__0169315C" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tSite">
+        <createTable tableName="tSite">
+            <column autoIncrement="true" name="SiteId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tSite" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="SiteNumber" type="nvarchar(254)" />
+            <column name="SiteName" type="nvarchar(254)" />
+            <column name="AddressLine1" type="nvarchar(100)" />
+            <column name="AddressLine2" type="nvarchar(100)" />
+            <column name="CityName" type="nvarchar(50)" />
+            <column name="JurisdictionId" type="int" />
+            <column name="ZipCode" type="nvarchar(50)" />
+            <column name="Elevation" type="nvarchar(50)" />
+            <column name="Latitude" type="nvarchar(50)" />
+            <column name="Longitude" type="nvarchar(50)" />
+            <column name="GisNumber" type="nvarchar(50)" />
+            <column name="MapCategory" type="nvarchar(50)" />
+            <column name="TrunkLine" type="nvarchar(15)" />
+            <column name="ReceivingPlant" type="nvarchar(15)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tSite_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tSite__IsRemoved__4C0144E4" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tSysFrequency">
+        <createTable tableName="tSysFrequency">
+            <column autoIncrement="true" name="SystemFrequencyId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_SystemFrequency" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="SystemFrequency" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Days" type="int" />
+            <column name="Months" type="int" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tSysFrequency_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tSysFrequ__IsAct__1293BD5E" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tSysFrequ__IsRem__1387E197" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tSettingTemplate">
+        <createTable tableName="tSettingTemplate">
+            <column autoIncrement="true" name="SettingTemplateId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tSettingTemplate" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column name="DefaultValue" type="nvarchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationTypeId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tSettingTemplate_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tTag">
+        <createTable tableName="tTag">
+            <column autoIncrement="true" name="TagId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tTag" />
+            </column>
+            <column name="Name" type="nvarchar(254)" />
+            <column name="Description" type="nvarchar(254)" />
+            <column name="TagType" type="nvarchar(50)" />
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tTag_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tTag__IsRemoved__5B438874" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tTag__IsActive__75C27486" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tAttachment">
+        <createTable tableName="tAttachment">
+            <column autoIncrement="true" name="AttachmentId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tAttachment" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="S3ThumbnailPath" type="nvarchar(256)" />
+            <column name="S3ResourcePath" type="nvarchar(256)" />
+            <column name="FileName" type="nvarchar(256)" />
+            <column name="FileType" type="nvarchar(10)" />
+            <column name="FileSizeInByte" type="int" />
+            <column name="MediaType" type="nvarchar(100)" />
+            <column name="Description" type="nvarchar(500)" />
+            <column name="Comments" type="nvarchar(500)" />
+            <column name="UploadDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="UploaderUserId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tAttachme__IsRem__52442E1F" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tAttachment_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramSetting">
+        <createTable tableName="tOrganizationRegulatoryProgramSetting">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramSettingId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgramSetting" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="SettingTemplateId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Value" type="nvarchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramSetting_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tJwtRegulatoryProgram">
+        <createTable tableName="tJwtRegulatoryProgram">
+            <column name="Jwt" type="nvarchar(500)">
+                <constraints primaryKey="true" primaryKeyName="PK_tJwtRegulatoryProgram" />
+            </column>
+            <column name="UserProfileId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ExpirationDateTimeUtc" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="RefreshToken" type="nvarchar(500)" />
+            <column defaultValueConstraintName="DF__tJwtRegul__IsVal__65C116E7" defaultValueNumeric="1" name="IsValid" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tJwtRegulatoryProgram_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tPermissionGroup">
+        <createTable tableName="tPermissionGroup">
+            <column autoIncrement="true" name="PermissionGroupId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tPermissionGroup" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tPermissionGroup_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationTypeRegulatoryProgram">
+        <createTable tableName="tOrganizationTypeRegulatoryProgram">
+            <column autoIncrement="true" name="OrganizationTypeRegulatoryProgramId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationTypeRegulatoryProgram" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationTypeId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationTypeRegulatoryProgram_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganization">
+        <createTable tableName="tOrganization">
+            <column autoIncrement="true" name="OrganizationId" startWith="1000" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganization" />
+            </column>
+            <column name="OrganizationTypeId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Name" type="nvarchar(254)">
+                <constraints nullable="false" />
+            </column>
+            <column name="AddressLine1" type="nvarchar(100)" />
+            <column name="AddressLine2" type="nvarchar(100)" />
+            <column name="CityName" type="nvarchar(100)" />
+            <column name="ZipCode" type="nvarchar(50)" />
+            <column name="JurisdictionId" type="int" />
+            <column name="PhoneNumber" type="nvarchar(25)" />
+            <column name="PhoneExt" type="int" />
+            <column name="FaxNumber" type="nvarchar(25)" />
+            <column name="WebsiteURL" type="nvarchar(256)" />
+            <column name="Signer" type="nvarchar(250)" />
+            <column name="Classification" type="nvarchar(50)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganization_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column name="InBusinessSinceUtc" type="datetimeoffset" />
+            <column name="ClosedDateUtc" type="datetimeoffset" />
+            <column name="NumberOfEmployees" type="nvarchar(50)" />
+            <column name="HoursOfOperation" type="nvarchar(254)" />
+            <column name="SquareFootage" type="nvarchar(254)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramContact">
+        <createTable tableName="tOrganizationRegulatoryProgramContact">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramContactId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgramContact" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ContactId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ContactTypeId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tOrganiza__IsPri__46136164" defaultValueNumeric="0" name="IsPrimary" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramContact_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tExtractor">
+        <createTable tableName="tExtractor">
+            <column autoIncrement="true" name="ExtractorId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tExtractor" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ExtractorTypeId" type="int" />
+            <column name="ExtractorDescription" type="varchar(254)" />
+            <column defaultValueConstraintName="DF__tExtracto__Manda__02E7657A" defaultValueNumeric="0" name="MandatoryInstall" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="InstallDate" type="datetime" />
+            <column name="CleanFrequencyId" type="int" />
+            <column name="Latitude" type="nvarchar(50)" />
+            <column name="Longitude" type="nvarchar(50)" />
+            <column name="TrapCapacity" type="float(53)" />
+            <column name="TrapCapacityUnitId" type="int" />
+            <column name="TrapDepth" type="float(53)" />
+            <column name="TrapDepthUnitID" type="int" />
+            <column defaultValueConstraintName="DF__tExtracto__IsAct__03DB89B3" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tExtracto__IsRem__04CFADEC" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_Extractor_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tFogFacilityAttachment">
+        <createTable tableName="tFogFacilityAttachment">
+            <column autoIncrement="true" name="FacilityAttachmentId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tFogFacilityAttachment" />
+            </column>
+            <column name="OrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="AttachmentId" type="int">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tQuestionType">
+        <createTable tableName="tQuestionType">
+            <column autoIncrement="true" name="QuestionTypeId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tQuestionType" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tQuestionType_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tQuestion">
+        <createTable tableName="tQuestion">
+            <column autoIncrement="true" name="QuestionID" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tQuestion" />
+            </column>
+            <column name="Content" type="nvarchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column name="QuestionTypeId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tQuestion_IsActive" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tQuestion_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tEquipmentType">
+        <createTable tableName="tEquipmentType">
+            <column autoIncrement="true" name="EquipmentTypeId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_EquipmentType" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="EquipmentTypeName" type="nvarchar(50)" />
+            <column name="EquipmentGroupId" type="int" />
+            <column name="AdjustBeforeMultiply" type="float(53)" />
+            <column name="MultiplyFactor" type="float(53)" />
+            <column name="AdjustAfterMultiply" type="float(53)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tEquipmentType_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tEquipmen__IsAct__1A34DF26" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tEquipmen__IsRem__1B29035F" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryProgramNote">
+        <createTable tableName="tOrganizationRegulatoryProgramNote">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramNoteId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryProgramNote" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="NoteTypeLookupId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Notes" type="nvarchar (max) (16)" />
+            <column defaultValueConstraintName="DF__tOrganiza__IsRem__68687968" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryProgramNote_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_AspNetUserLogins">
+        <createTable tableName="AspNetUserLogins">
+            <column name="LoginProvider" type="nvarchar(128)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserLogins" />
+            </column>
+            <column name="ProviderKey" type="nvarchar(128)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserLogins" />
+            </column>
+            <column name="UserId" type="nvarchar(128)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserLogins" />
+            </column>
+            <column name="ProviderDisplayName" type="nvarchar(255)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_AspNetRoleClaims">
+        <createTable tableName="AspNetRoleClaims">
+            <column autoIncrement="true" name="Id" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetRoleClaims" />
+            </column>
+            <column name="ClaimType" type="nvarchar(MAX)" />
+            <column name="ClaimValue" type="nvarchar(MAX)" />
+            <column name="RoleId" type="nvarchar(128)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_AspNetUserClaims">
+        <createTable tableName="AspNetUserClaims">
+            <column autoIncrement="true" name="Id" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserClaims" />
+            </column>
+            <column name="UserId" type="nvarchar(128)" />
+            <column name="ClaimType" type="nvarchar(MAX)" />
+            <column name="ClaimValue" type="nvarchar(MAX)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tPermissionGroupTemplate">
+        <createTable tableName="tPermissionGroupTemplate">
+            <column autoIncrement="true" name="PermissionGroupTemplateId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tPermissionGroupTemplate" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column name="OrganizationTypeRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tPermissionGroupTemplate_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tUserQuestionAnswer">
+        <createTable tableName="tUserQuestionAnswer">
+            <column autoIncrement="true" name="UserQuestionAnswerId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tUserQuestionAnswer" />
+            </column>
+            <column name="Content" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column name="QuestionId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="UserProfileId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tUserQuestionAnswer_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationCallLog">
+        <createTable tableName="tOrganizationCallLog">
+            <column autoIncrement="true" name="CallLogId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationCallLog" />
+            </column>
+            <column name="OrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="CommentText" type="nvarchar(MAX)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationCallLog_CallLogDateTimeUtc" name="CallLogDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tOrganiza__IsUse__190BB0C3" defaultValueNumeric="1" name="IsUserProvidedTime" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tOrganiza__IsRem__19FFD4FC" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationCallLog_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tUserPasswordHistory">
+        <createTable tableName="tUserPasswordHistory">
+            <column autoIncrement="true" name="UserPasswordHistoryId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tUserPasswordHistory" />
+            </column>
+            <column name="PasswordHash" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column name="UserProfileId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tUserPasswordHistory_LastModificationDateTimeUtc" name="LastModificationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_AspNetUserTokens">
+        <createTable tableName="AspNetUserTokens">
+            <column name="UserId" type="nvarchar(450)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserTokens" />
+            </column>
+            <column name="LoginProvider" type="nvarchar(450)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserTokens" />
+            </column>
+            <column name="Name" type="nvarchar(450)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetUserTokens" />
+            </column>
+            <column name="Value" type="nvarchar(MAX)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tRegulatoryProgram">
+        <createTable tableName="tRegulatoryProgram">
+            <column autoIncrement="true" name="RegulatoryProgramId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tRegulatoryProgram" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tRegulatoryProgram_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tEmailAuditLog">
+        <createTable tableName="tEmailAuditLog">
+            <column autoIncrement="true" name="EmailAuditLogId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tEmailAuditLog" />
+            </column>
+            <column name="AuditLogTemplateId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="SenderRegulatoryProgramId" type="int" />
+            <column name="SenderOrganizationId" type="int" />
+            <column name="SenderRegulatorOrganizationId" type="int" />
+            <column name="SenderUserProfileId" type="int" />
+            <column name="SenderUserName" type="nvarchar(256)" />
+            <column name="SenderFirstName" type="nvarchar(50)" />
+            <column name="SenderLastName" type="nvarchar(50)" />
+            <column name="SenderEmailAddress" type="nvarchar(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="RecipientRegulatoryProgramId" type="int" />
+            <column name="RecipientOrganizationId" type="int" />
+            <column name="RecipientRegulatorOrganizationId" type="int" />
+            <column name="RecipientUserProfileId" type="int" />
+            <column name="RecipientUserName" type="nvarchar(256)" />
+            <column name="RecipientFirstName" type="nvarchar(50)" />
+            <column name="RecipientLastName" type="nvarchar(50)" />
+            <column name="RecipientEmailAddress" type="nvarchar(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Subject" type="nvarchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Body" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Token" type="nvarchar(128)" />
+            <column name="SentDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tModule">
+        <createTable tableName="tModule">
+            <column autoIncrement="true" name="ModuleId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tModule" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column name="OrganizationTypeRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tModule_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tPermissionGroupTemplatePermission">
+        <createTable tableName="tPermissionGroupTemplatePermission">
+            <column autoIncrement="true" name="PermissionGroupTemplatePermissionId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tPermissionGroupTemplatePermission" />
+            </column>
+            <column name="PermissionGroupTemplateId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="PermissionId" type="int">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tFrequency">
+        <createTable tableName="tFrequency">
+            <column autoIncrement="true" name="FrequencyId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tFrequency" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="FrequencyCode" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="TimesPerYear" type="int" />
+            <column name="DaysBetweenEvents" type="int" />
+            <column name="MonthsBetweenEvents" type="int" />
+            <column name="YearsBetweenEvents" type="int" />
+            <column name="ViewType" type="nvarchar(50)" />
+            <column name="StartDateTimeUtc" type="datetimeoffset" />
+            <column name="EndDateTimeUtc" type="datetimeoffset" />
+            <column defaultValueConstraintName="DF__tFrequenc__IsInV__08162EEB" defaultValueNumeric="0" name="IsInView" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tFrequenc__IsCal__090A5324" defaultValueNumeric="0" name="IsCalendarView" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tFrequenc__IsEve__09FE775D" defaultValueNumeric="0" name="IsEventsView" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="SortOrder" type="float(53)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tFrequency_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+            <column defaultValueConstraintName="DF__tFrequenc__IsAct__0AF29B96" defaultValueNumeric="1" name="IsActive" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tFrequenc__IsRem__0BE6BFCF" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tSystemSetting">
+        <createTable tableName="tSystemSetting">
+            <column autoIncrement="true" name="SystemSettingId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tSystemSetting" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Value" type="nvarchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tSystemSetting_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tPermissionGroupPermission">
+        <createTable tableName="tPermissionGroupPermission">
+            <column autoIncrement="true" name="PermissionGroupPermissionId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tPermissionGroupPermission" />
+            </column>
+            <column name="PermissionGroupId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="PermissionId" type="int">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationComment">
+        <createTable tableName="tOrganizationComment">
+            <column autoIncrement="true" name="CommentId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationComment" />
+            </column>
+            <column name="OrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="CreatorOrganizationId" type="int" />
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="CommentText" type="nvarchar(MAX)" />
+            <column defaultValueConstraintName="DF__tOrganiza__IsRem__7B7B4DDC" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationComment_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tCustomFieldValue">
+        <createTable tableName="tCustomFieldValue">
+            <column autoIncrement="true" name="Id" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tCustomFieldValue" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="AppliedToTable" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="CustomFieldId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="PrimaryId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="UniqueTextValue" type="nvarchar(500)" />
+            <column name="TextValue" type="nvarchar(500)" />
+            <column name="BigTextValue" type="nvarchar(MAX)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tPermission">
+        <createTable tableName="tPermission">
+            <column autoIncrement="true" name="PermissionId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tPermission" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column name="ModuleId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tPermission_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tContactEmail">
+        <createTable tableName="tContactEmail">
+            <column autoIncrement="true" name="ContactEmailId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tContactEmail" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ContactId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="Email" type="nvarchar(100)" />
+            <column name="Label" type="nvarchar(255)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tContactEmail_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_AspNetRoles">
+        <createTable tableName="AspNetRoles">
+            <column name="Id" type="nvarchar(128)">
+                <constraints primaryKey="true" primaryKeyName="PK_AspNetRoles" />
+            </column>
+            <column name="Name" type="nvarchar(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="ConcurrencyStamp" type="nvarchar(255)" />
+            <column name="NormalizedName" type="nvarchar(255)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tOrganizationRegulatoryIndustryCode">
+        <createTable tableName="tOrganizationRegulatoryIndustryCode">
+            <column autoIncrement="true" name="OrganizationRegulatoryProgramIndustryCodeId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tOrganizationRegulatoryIndustryCode" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="OrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="IndustryCodeCatetoryLookupId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="IndustryCode" type="nvarchar(50)" />
+            <column name="IndustryCodeDescription" type="nvarchar(254)" />
+            <column defaultValueConstraintName="DF__tOrganiza__IsRem__70099B30" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tOrganizationRegulatoryIndustryCode_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tTermCondition">
+        <createTable tableName="tTermCondition">
+            <column autoIncrement="true" name="TermConditionId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tTermCondition" />
+            </column>
+            <column name="Content" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tTermCondition_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tCromerrAuditLog">
+        <createTable tableName="tCromerrAuditLog">
+            <column autoIncrement="true" name="CromerrAuditLogId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tCromerrAuditLog" />
+            </column>
+            <column name="AuditLogTemplateId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RegulatoryProgramId" type="int" />
+            <column name="OrganizationId" type="int" />
+            <column name="RegulatorOrganizationId" type="int" />
+            <column name="UserProfileId" type="int" />
+            <column name="UserName" type="nvarchar(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="UserFirstName" type="nvarchar(50)" />
+            <column name="UserLastName" type="nvarchar(50)" />
+            <column name="UserEmailAddress" type="nvarchar(256)" />
+            <column name="IPAddress" type="nvarchar(50)" />
+            <column name="HostName" type="nvarchar(256)" />
+            <column name="Comment" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column name="LogDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tAuditLogTemplate">
+        <createTable tableName="tAuditLogTemplate">
+            <column autoIncrement="true" name="AuditLogTemplateId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tAuditLogTemplate" />
+            </column>
+            <column name="Name" type="nvarchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="TemplateType" type="nvarchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="EventCategory" type="nvarchar(30)">
+                <constraints nullable="false" />
+            </column>
+            <column name="EventType" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="SubjectTemplate" type="nvarchar(500)" />
+            <column name="MessageTemplate" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tAuditLogTemplate_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tPrivacyPolicy">
+        <createTable tableName="tPrivacyPolicy">
+            <column autoIncrement="true" name="PrivacyPolicyId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tPrivacyPolicy" />
+            </column>
+            <column name="Content" type="nvarchar(MAX)">
+                <constraints nullable="false" />
+            </column>
+            <column name="EffectiveDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tPrivacyPolicy_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tSystemUnit">
+        <createTable tableName="tSystemUnit">
+            <column autoIncrement="true" name="SystemUnitId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tSystemUnit" />
+            </column>
+            <column name="Name" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column name="UnitDimensionId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="ConversionFactor" type="float(53)">
+                <constraints nullable="false" />
+            </column>
+            <column name="AdditiveFactor" type="float(53)">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tSystemUnit_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tUnitDimension">
+        <createTable tableName="tUnitDimension">
+            <column autoIncrement="true" name="UnitDimensionId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tUnitDimension" />
+            </column>
+            <column name="Name" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="Description" type="nvarchar(500)" />
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tUnitDimension_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tInvitation">
+        <createTable tableName="tInvitation">
+            <column name="InvitationId" type="nvarchar(128)" >
+                <constraints primaryKey="true" primaryKeyName="PK_tInvitation" />
+            </column>
+            <column name="FirstName" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastName" type="nvarchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="EmailAddress" type="nvarchar(256)">
+                <constraints nullable="false" />
+            </column>
+            <column name="InvitationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="SenderOrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="RecipientOrganizationRegulatoryProgramId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF_tInvitation_IsResetInvitation" defaultValueNumeric="0" name="IsResetInvitation" type="bit">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tAddress">
+        <createTable tableName="tAddress">
+            <column autoIncrement="true" name="AddressId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tAddress" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="AddressLine1" type="nvarchar(100)" />
+            <column name="AddressLine2" type="nvarchar(100)" />
+            <column name="City" type="nvarchar(50)" />
+            <column name="JurisdictionId" type="int" />
+            <column name="ZipCode" type="nvarchar(50)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="createTable_tFogEquipment">
+        <createTable tableName="tFogEquipment">
+            <column autoIncrement="true" name="EquipmentId" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_tFogEquipment" />
+            </column>
+            <column name="CreatorOrganizationId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="FacilityId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="EquipmentTypeId" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="EquipmentDescription" type="nvarchar(1024)" />
+            <column name="EquipmentComments" type="nvarchar(1024)" />
+            <column name="EquipmentQuantity" type="int" />
+            <column name="FOGFactor" type="float(53)" />
+            <column defaultValueConstraintName="DF__tFogEquip__Plumb__61BB7BD9" defaultValueNumeric="0" name="PlumbedToGreaseInterceptor" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueConstraintName="DF__tFogEquip__IsRem__62AFA012" defaultValueNumeric="0" name="IsRemoved" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column defaultValueComputed="sysdatetimeoffset()" defaultValueConstraintName="DF_tFogEquipment_CreationDateTimeUtc" name="CreationDateTimeUtc" type="datetimeoffset">
+                <constraints nullable="false" />
+            </column>
+            <column name="LastModificationDateTimeUtc" type="datetimeoffset" />
+            <column name="LastModifierUserId" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tHauler_HaulerId_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="HaulerId, CreatorOrganizationId" constraintName="UQ_tHauler_HaulerId_CreatorOrganizationId" tableName="tHauler" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tHauler_HaulerNumber_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="HaulerNumber, CreatorOrganizationId" constraintName="UQ_tHauler_HaulerNumber_CreatorOrganizationId" tableName="tHauler" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationRegulatoryProgramUser_OrganizationRegulatoryProgramId_UserProfileId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, UserProfileId" constraintName="AK_tOrganizationRegulatoryProgramUser_OrganizationRegulatoryProgramId_UserProfileId" tableName="tOrganizationRegulatoryProgramUser" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgramUser_InviterOrganizationRegulatoryProgramId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgramUser_InviterOrganizationRegulatoryProgramId" tableName="tOrganizationRegulatoryProgramUser">
+            <column name="InviterOrganizationRegulatoryProgramId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgramUser_OrganizationRegulatoryProgramId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgramUser_OrganizationRegulatoryProgramId" tableName="tOrganizationRegulatoryProgramUser">
+            <column name="OrganizationRegulatoryProgramId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgramUser_PermissionGroupId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgramUser_PermissionGroupId" tableName="tOrganizationRegulatoryProgramUser">
+            <column name="PermissionGroupId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgramUser_UserProfileId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgramUser_UserProfileId" tableName="tOrganizationRegulatoryProgramUser">
+            <column name="UserProfileId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tLookup_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="LookupId, CreatorOrganizationId" constraintName="UK_tLookup_CreatorOrganizationId" tableName="tLookup" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tLookup_Index">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, RegulatoryProgramId, LookupType, Code" constraintName="UK_tLookup_Index" tableName="tLookup" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tUserProfile_Email">
+        <addUniqueConstraint columnNames="Email" constraintName="AK_tUserProfile_Email" tableName="tUserProfile" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tUserProfile_UserName">
+        <addUniqueConstraint columnNames="UserName" constraintName="AK_tUserProfile_UserName" tableName="tUserProfile" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tUserProfile_UserProfileId">
+        <addUniqueConstraint columnNames="UserProfileId" constraintName="AK_tUserProfile_UserProfileId" tableName="tUserProfile" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tUserProfile_JurisdictionId">
+        <createIndex indexName="IX_tUserProfile_JurisdictionId" tableName="tUserProfile">
+            <column name="JurisdictionId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tUserProfile_TermConditionId">
+        <createIndex indexName="IX_tUserProfile_TermConditionId" tableName="tUserProfile">
+            <column name="TermConditionId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tUnit_OrganizationId_Name">
+        <addUniqueConstraint columnNames="OrganizationId, Name" constraintName="AK_tUnit_OrganizationId_Name" tableName="tUnit" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tUnit_OrganizationId">
+        <createIndex indexName="IX_tUnit_OrganizationId" tableName="tUnit">
+            <column name="OrganizationId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tUnit_SystemUnitId">
+        <createIndex indexName="IX_tUnit_SystemUnitId" tableName="tUnit">
+            <column name="SystemUnitId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationRegulatoryProgram_OrganizationId_RegulatoryProgramId">
+        <addUniqueConstraint columnNames="OrganizationId, RegulatoryProgramId" constraintName="AK_tOrganizationRegulatoryProgram_OrganizationId_RegulatoryProgramId" tableName="tOrganizationRegulatoryProgram" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_FK_tOrganizationRegulatoryProgram_4">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, OrganizationId, RegulatoryProgramId, RegulatorOrganizationId" constraintName="FK_tOrganizationRegulatoryProgram_4" tableName="tOrganizationRegulatoryProgram" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_FK_tOrganizationRegulatoryProgram_OrpId_OrganizationId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, OrganizationId" constraintName="FK_tOrganizationRegulatoryProgram_OrpId_OrganizationId" tableName="tOrganizationRegulatoryProgram" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgram_OrganizationId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgram_OrganizationId" tableName="tOrganizationRegulatoryProgram">
+            <column name="OrganizationId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgram_RegulatorOrganizationId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgram_RegulatorOrganizationId" tableName="tOrganizationRegulatoryProgram">
+            <column name="RegulatorOrganizationId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgram_RegulatoryProgramId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgram_RegulatoryProgramId" tableName="tOrganizationRegulatoryProgram">
+            <column name="RegulatoryProgramId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tOrganizationRegulatoryProgram_OrganizationId_RegulatorOrganizationId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, OrganizationId, RegulatorOrganizationId" constraintName="UQ_tOrganizationRegulatoryProgram_OrganizationId_RegulatorOrganizationId" tableName="tOrganizationRegulatoryProgram" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tOrganizationRegulatoryProgran_OrpId_RegulatorOrganizationId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, RegulatorOrganizationId" constraintName="UQ_tOrganizationRegulatoryProgran_OrpId_RegulatorOrganizationId" tableName="tOrganizationRegulatoryProgram" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationSetting_OrganizationId_SettingTemplateId">
+        <addUniqueConstraint columnNames="OrganizationId, SettingTemplateId" constraintName="AK_tOrganizationSetting_OrganizationId_SettingTemplateId" tableName="tOrganizationSetting" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationSetting_OrganizationId">
+        <createIndex indexName="IX_tOrganizationSetting_OrganizationId" tableName="tOrganizationSetting">
+            <column name="OrganizationId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationSetting_SettingTemplateId">
+        <createIndex indexName="IX_tOrganizationSetting_SettingTemplateId" tableName="tOrganizationSetting">
+            <column name="SettingTemplateId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationRegulatoryProgramModule_OrganizationRegulatoryProgramId_ModuleId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, ModuleId" constraintName="AK_tOrganizationRegulatoryProgramModule_OrganizationRegulatoryProgramId_ModuleId" tableName="tOrganizationRegulatoryProgramModule" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramModule_OrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId" baseTableName="tOrganizationRegulatoryProgramModule" constraintName="FK_tOrganizationRegulatoryProgramModule_tOrganizationRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationRegulatoryProgramModule_ModuleId">
+        <createIndex indexName="IX_tOrganizationRegulatoryProgramModule_ModuleId" tableName="tOrganizationRegulatoryProgramModule">
+            <column name="ModuleId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramAddress_OrganizationRegulatoryProgramId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryProgramAddress" constraintName="FK_tOrganizationRegulatoryProgramAddress_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tContact_ContactId_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="ContactId, CreatorOrganizationId" constraintName="UQ_tContact_ContactId_CreatorOrganizationId" tableName="tContact" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramTag_OrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId" baseTableName="tOrganizationRegulatoryProgramTag" constraintName="FK_tOrganizationRegulatoryProgramTag_OrpId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationType_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tOrganizationType_Name" tableName="tOrganizationType" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tTimeZone_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tTimeZone_Name" tableName="tTimeZone" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tCustomFieldDefinition_CustomFieldId">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, AppliedToTable, CustomFieldId" constraintName="UK_tCustomFieldDefinition_CustomFieldId" tableName="tCustomFieldDefinition" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tCustomFieldDefinition_FieldName">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, AppliedToTable, FieldName" constraintName="UK_tCustomFieldDefinition_FieldName" tableName="tCustomFieldDefinition" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_AspNetUserRoles_UserId">
+        <addForeignKeyConstraint baseColumnNames="UserId" baseTableName="AspNetUserRoles" constraintName="FK_AspNetUserRoles_tUserProfile" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="Id" referencedTableName="tUserProfile" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_AspNetUserRoles_RoleId">
+        <createIndex indexName="IX_AspNetUserRoles_RoleId" tableName="AspNetUserRoles">
+            <column name="RoleId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFogFacility_OrganizationRegulatoryProgramId_OrganizationId_RegulatoryProgramId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,OrganizationId,RegulatoryProgramId,CreatorOrganizationId" baseTableName="tFogFacility" constraintName="FK_tFogFacility_tOrganizationRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,OrganizationId,RegulatoryProgramId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tFogFacility_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="OrganizationId, CreatorOrganizationId" constraintName="UK_tFogFacility_CreatorOrganizationId" tableName="tFogFacility" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tWasteType_Index">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, RegulatoryProgramId, WasteType" constraintName="UK_tWasteType_Index" tableName="tWasteType" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSite_JurisdictionId">
+        <addForeignKeyConstraint baseColumnNames="JurisdictionId" baseTableName="tSite" constraintName="FK_tSite_tJurisdiction" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="JurisdictionId" referencedTableName="tJurisdiction" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tSite_SiteId_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="SiteId, CreatorOrganizationId" constraintName="UQ_tSite_SiteId_CreatorOrganizationId" tableName="tSite" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tSysFrequency_Index">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, RegulatoryProgramId, SystemFrequency" constraintName="UK_tSysFrequency_Index" tableName="tSysFrequency" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSettingTemplate_OrganizationTypeId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationTypeId" baseTableName="tSettingTemplate" constraintName="FK_tSettingTemplate_tOrganizationType" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationTypeId" referencedTableName="tOrganizationType" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tSettingTemplate_Name">
+        <createIndex indexName="IX_tSettingTemplate_Name" tableName="tSettingTemplate">
+            <column name="Name" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tSettingTemplate_RegulatoryProgramId">
+        <createIndex indexName="IX_tSettingTemplate_RegulatoryProgramId" tableName="tSettingTemplate">
+            <column name="RegulatoryProgramId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tTag_OrganizationRegulatoryProgramId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,CreatorOrganizationId" baseTableName="tTag" constraintName="FK_tTag_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,OrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tTag_OrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId" baseTableName="tTag" constraintName="FK_tTag_OrganizationRegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tAttachment_AttachmentId_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="AttachmentId, CreatorOrganizationId" constraintName="UQ_tAttachment_AttachmentId_CreatorOrganizationId" tableName="tAttachment" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationRegulatoryProgramSetting_OrganizationRegulatoryProgramId_SettingTemplateId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, SettingTemplateId" constraintName="AK_tOrganizationRegulatoryProgramSetting_OrganizationRegulatoryProgramId_SettingTemplateId" tableName="tOrganizationRegulatoryProgramSetting" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramSetting_OrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId" baseTableName="tOrganizationRegulatoryProgramSetting" constraintName="FK_tOrganizationRegulatoryProgramSetting_tOrganizationRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramSetting_SettingTemplateId">
+        <addForeignKeyConstraint baseColumnNames="SettingTemplateId" baseTableName="tOrganizationRegulatoryProgramSetting" constraintName="FK_tOrganizationRegulatoryProgramSetting_tSettingTemplate" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SettingTemplateId" referencedTableName="tSettingTemplate" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tJwtRegulatoryProgram_UserProfileId">
+        <addForeignKeyConstraint baseColumnNames="UserProfileId" baseTableName="tJwtRegulatoryProgram" constraintName="FK_tJwtRegulatoryProgram_tUserProfile" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UserProfileId" referencedTableName="tUserProfile" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tPermissionGroup_Name_OrganizationRegulatoryProgramId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, Name" constraintName="AK_tPermissionGroup_Name_OrganizationRegulatoryProgramId" tableName="tPermissionGroup" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tPermissionGroup_OrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId" baseTableName="tPermissionGroup" constraintName="FK_tPermissionGroup_tOrganizationRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tPermissionGroup_Name">
+        <createIndex indexName="IX_tPermissionGroup_Name" tableName="tPermissionGroup">
+            <column name="Name" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationTypeRegulatoryProgram_RegulatoryProgramId_OrganizationTypeId">
+        <addUniqueConstraint columnNames="RegulatoryProgramId, OrganizationTypeId" constraintName="AK_tOrganizationTypeRegulatoryProgram_RegulatoryProgramId_OrganizationTypeId" tableName="tOrganizationTypeRegulatoryProgram" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationTypeRegulatoryProgram_OrganizationTypeId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationTypeId" baseTableName="tOrganizationTypeRegulatoryProgram" constraintName="FK_tOrganizationTypeRegulatoryProgram_tOrganizationType" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationTypeId" referencedTableName="tOrganizationType" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tOrganizationTypeRegulatoryProgram_RegulatoryProgramId">
+        <createIndex indexName="IX_tOrganizationTypeRegulatoryProgram_RegulatoryProgramId" tableName="tOrganizationTypeRegulatoryProgram">
+            <column name="RegulatoryProgramId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganization_JurisdictionId">
+        <addForeignKeyConstraint baseColumnNames="JurisdictionId" baseTableName="tOrganization" constraintName="FK_tOrganization_tJurisdiction" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="JurisdictionId" referencedTableName="tJurisdiction" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganization_OrganizationTypeId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationTypeId" baseTableName="tOrganization" constraintName="FK_tOrganization_tOrganizationType" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationTypeId" referencedTableName="tOrganizationType" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tOrganizationRegulatoryProgramContact_OrganizationRegulatoryProgramId_ContactId">
+        <addUniqueConstraint columnNames="OrganizationRegulatoryProgramId, ContactId" constraintName="AK_tOrganizationRegulatoryProgramContact_OrganizationRegulatoryProgramId_ContactId" tableName="tOrganizationRegulatoryProgramContact" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramContact_ContactId">
+        <addForeignKeyConstraint baseColumnNames="ContactId" baseTableName="tOrganizationRegulatoryProgramContact" constraintName="FK_tOrganizationRegulatoryProgramContact_ContactId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ContactId" referencedTableName="tContact" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramContact_ContactTypeId">
+        <addForeignKeyConstraint baseColumnNames="ContactTypeId" baseTableName="tOrganizationRegulatoryProgramContact" constraintName="FK_tOrganizationRegulatoryProgramContact_ContactTypeId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="LookupId" referencedTableName="tLookup" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramContact_OrganizationRegulatoryProgramId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryProgramContact" constraintName="FK_tOrganizationRegulatoryProgramContact_CreatorOrgId_OrpId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tExtractor_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tExtractor" constraintName="FK_tExtractor_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tExtractor_ExtractorTypeId">
+        <addForeignKeyConstraint baseColumnNames="ExtractorTypeId" baseTableName="tExtractor" constraintName="FK_tExtractor_ExtractorTypeId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="LookupId" referencedTableName="tLookup" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tExtractor_TrapCapacityUnitId">
+        <addForeignKeyConstraint baseColumnNames="TrapCapacityUnitId" baseTableName="tExtractor" constraintName="FK_tExtractor_TrapCapacityUnitId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UnitId" referencedTableName="tUnit" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tExtractor_TrapDepthUnitID">
+        <addForeignKeyConstraint baseColumnNames="TrapDepthUnitID" baseTableName="tExtractor" constraintName="FK_tExtractor_TrapDepthUnitId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UnitId" referencedTableName="tUnit" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tExtractor_ExtractorId_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="ExtractorId, CreatorOrganizationId" constraintName="UQ_tExtractor_ExtractorId_CreatorOrganizationId" tableName="tExtractor" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFogFacilityAttachment_AttachmentId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="AttachmentId,CreatorOrganizationId" baseTableName="tFogFacilityAttachment" constraintName="FK_tFogFacilityAttachment_AttachmentId_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AttachmentId,CreatorOrganizationId" referencedTableName="tAttachment" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFogFacilityAttachment_OrganizationId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationId,CreatorOrganizationId" baseTableName="tFogFacilityAttachment" constraintName="FK_tFogFacilityAttachment_FacilityId_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId,CreatorOrganizationId" referencedTableName="tFogFacility" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tFogFacilityAttachment_FogFacilityAttachmentId_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="FacilityAttachmentId, CreatorOrganizationId" constraintName="UQ_tFogFacilityAttachment_FogFacilityAttachmentId_CreatorOrganizationId" tableName="tFogFacilityAttachment" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tQuestionType_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tQuestionType_Name" tableName="tQuestionType" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tQuestion_QuestionTypeId">
+        <addForeignKeyConstraint baseColumnNames="QuestionTypeId" baseTableName="tQuestion" constraintName="FK_tQuestion_tQuestionType" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="QuestionTypeId" referencedTableName="tQuestionType" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tEquipmentType_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tEquipmentType" constraintName="FK_tEquipmentType_OganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tEquipmentType_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="EquipmentTypeId, CreatorOrganizationId" constraintName="UK_tEquipmentType_CreatorOrganizationId" tableName="tEquipmentType" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tEquipmentType_Index">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, RegulatoryProgramId, EquipmentTypeName" constraintName="UK_tEquipmentType_Index" tableName="tEquipmentType" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramNote_NoteTypeLookupId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="NoteTypeLookupId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryProgramNote" constraintName="FK_tOrganizationRegulatoryProgramNote_NoteTypeLookupId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="LookupId,CreatorOrganizationId" referencedTableName="tLookup" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramNote_OrganizationRegulatoryProgramId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryProgramNote" constraintName="FK_tOrganizationRegulatoryProgramNote_OrganizationRegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_AspNetUserLogins_UserId">
+        <addForeignKeyConstraint baseColumnNames="UserId" baseTableName="AspNetUserLogins" constraintName="FK_AspNetUserLogins_tUserProfile" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="Id" referencedTableName="tUserProfile" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_AspNetRoleClaims_RoleId">
+        <createIndex indexName="IX_AspNetRoleClaims_RoleId" tableName="AspNetRoleClaims">
+            <column name="RoleId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_AspNetUserClaims_UserId">
+        <addForeignKeyConstraint baseColumnNames="UserId" baseTableName="AspNetUserClaims" constraintName="FK_AspNetUserClaims_tUserProfile" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="Id" referencedTableName="tUserProfile" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tPermissionGroupTemplate_Name_OrganizationTypeRegulatoryProgramId">
+        <addUniqueConstraint columnNames="OrganizationTypeRegulatoryProgramId, Name" constraintName="AK_tPermissionGroupTemplate_Name_OrganizationTypeRegulatoryProgramId" tableName="tPermissionGroupTemplate" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tPermissionGroupTemplate_OrganizationTypeRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationTypeRegulatoryProgramId" baseTableName="tPermissionGroupTemplate" constraintName="FK_tPermissionGroupTemplate_tOrganizationTypeRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationTypeRegulatoryProgramId" referencedTableName="tOrganizationTypeRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tPermissionGroupTemplate_Name">
+        <createIndex indexName="IX_tPermissionGroupTemplate_Name" tableName="tPermissionGroupTemplate">
+            <column name="Name" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tUserQuestionAnswer_UserProfileId_QuestionId">
+        <addUniqueConstraint columnNames="UserProfileId, QuestionId" constraintName="AK_tUserQuestionAnswer_UserProfileId_QuestionId" tableName="tUserQuestionAnswer" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tUserQuestionAnswer_QuestionId">
+        <addForeignKeyConstraint baseColumnNames="QuestionId" baseTableName="tUserQuestionAnswer" constraintName="FK_tUserQuestionAnswer_tQuestion" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="QuestionID" referencedTableName="tQuestion" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tUserQuestionAnswer_UserProfileId">
+        <addForeignKeyConstraint baseColumnNames="UserProfileId" baseTableName="tUserQuestionAnswer" constraintName="FK_tUserQuestionAnswer_tUserProfile" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UserProfileId" referencedTableName="tUserProfile" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationCallLog_OrganizationRegulatoryProgramId_OrganizationId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,OrganizationId,CreatorOrganizationId" baseTableName="tOrganizationCallLog" constraintName="FK_tOrganizationCallLog" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,OrganizationId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tUserPasswordHistory_UserProfileId">
+        <addForeignKeyConstraint baseColumnNames="UserProfileId" baseTableName="tUserPasswordHistory" constraintName="FK_tUserPasswordHistory_tUserProfile" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UserProfileId" referencedTableName="tUserProfile" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tRegulatoryProgram_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tRegulatoryProgram_Name" tableName="tRegulatoryProgram" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tEmailAuditLog_AuditLogTemplateId">
+        <createIndex indexName="IX_tEmailAuditLog_AuditLogTemplateId" tableName="tEmailAuditLog">
+            <column name="AuditLogTemplateId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tEmailAuditLog_Token">
+        <createIndex indexName="IX_tEmailAuditLog_Token" tableName="tEmailAuditLog">
+            <column name="Token" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tModule_OrganizationTypeRegulatoryProgramId_Name">
+        <addUniqueConstraint columnNames="OrganizationTypeRegulatoryProgramId, Name" constraintName="AK_tModule_OrganizationTypeRegulatoryProgramId_Name" tableName="tModule" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tModule_OrganizationTypeRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationTypeRegulatoryProgramId" baseTableName="tModule" constraintName="FK_tModule_tOrganizationTypeRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationTypeRegulatoryProgramId" referencedTableName="tOrganizationTypeRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tModule_Name">
+        <createIndex indexName="IX_tModule_Name" tableName="tModule">
+            <column name="Name" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tPermissionGroupTemplatePermission_PermissionGroupTemplateId_PermissionId">
+        <addUniqueConstraint columnNames="PermissionGroupTemplateId, PermissionId" constraintName="AK_tPermissionGroupTemplatePermission_PermissionGroupTemplateId_PermissionId" tableName="tPermissionGroupTemplatePermission" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tPermissionGroupTemplatePermission_PermissionGroupTemplateId">
+        <addForeignKeyConstraint baseColumnNames="PermissionGroupTemplateId" baseTableName="tPermissionGroupTemplatePermission" constraintName="FK_tPermissionGroupTemplatePermission_tPermissionGroupTemplate" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PermissionGroupTemplateId" referencedTableName="tPermissionGroupTemplate" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tPermissionGroupTemplatePermission_PermissionId">
+        <createIndex indexName="IX_tPermissionGroupTemplatePermission_PermissionId" tableName="tPermissionGroupTemplatePermission">
+            <column name="PermissionId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFrequency_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tFrequency" constraintName="FK_tFrequency_OganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFrequency_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tFrequency" constraintName="FK_tFrequency_RegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tFrequency_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="FrequencyId, CreatorOrganizationId" constraintName="UK_tFrequency_CreatorOrganizationId" tableName="tFrequency" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tFrequency_Index">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, RegulatoryProgramId, FrequencyCode" constraintName="UK_tFrequency_Index" tableName="tFrequency" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tSystemSetting_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tSystemSetting_Name" tableName="tSystemSetting" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tPermissionGroupPermission_PermissionGroupId_PermissionId">
+        <addUniqueConstraint columnNames="PermissionGroupId, PermissionId" constraintName="AK_tPermissionGroupPermission_PermissionGroupId_PermissionId" tableName="tPermissionGroupPermission" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tPermissionGroupPermission_PermissionGroupId">
+        <addForeignKeyConstraint baseColumnNames="PermissionGroupId" baseTableName="tPermissionGroupPermission" constraintName="FK_tPermissionGroupPermission_tPermissionGroup" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PermissionGroupId" referencedTableName="tPermissionGroup" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tPermissionGroupPermission_PermissionId">
+        <createIndex indexName="IX_tPermissionGroupPermission_PermissionId" tableName="tPermissionGroupPermission">
+            <column name="PermissionId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationComment_OrganizationRegulatoryProgramId_OrganizationId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,OrganizationId,CreatorOrganizationId" baseTableName="tOrganizationComment" constraintName="FK_tOrganizationComment" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,OrganizationId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tCustomFieldValue_CreatorOrganizationId_AppliedToTable_CustomFieldId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId,AppliedToTable,CustomFieldId" baseTableName="tCustomFieldValue" constraintName="FK_tCustomFieldValue_CustomFieldId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CreatorOrganizationId,AppliedToTable,CustomFieldId" referencedTableName="tCustomFieldDefinition" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UK_tCustomFieldValue_PrimaryId_CustomFieldId">
+        <addUniqueConstraint columnNames="CreatorOrganizationId, AppliedToTable, PrimaryId, CustomFieldId" constraintName="UK_tCustomFieldValue_PrimaryId_CustomFieldId" tableName="tCustomFieldValue" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tPermission_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tPermission_Name" tableName="tPermission" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tPermission_ModuleId">
+        <addForeignKeyConstraint baseColumnNames="ModuleId" baseTableName="tPermission" constraintName="FK_tPermission_tModule" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ModuleId" referencedTableName="tModule" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tContactEmail_ContactId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="ContactId,CreatorOrganizationId" baseTableName="tContactEmail" constraintName="FK_tContactEmail_ContactId_CreatorOrgId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ContactId,CreatorOrganizationId" referencedTableName="tContact" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_AspNetRoles_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_AspNetRoles_Name" tableName="AspNetRoles" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryIndustryCode_IndustryCodeCatetoryLookupId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="IndustryCodeCatetoryLookupId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryIndustryCode" constraintName="FK_tOrganizationRegulatoryIndustryCode_IndustryCodeCatetoryLookupId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="LookupId,CreatorOrganizationId" referencedTableName="tLookup" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryIndustryCode_OrganizationRegulatoryProgramId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryIndustryCode" constraintName="FK_tOrganizationRegulatoryIndustryCode_OrganizationRegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tCromerrAuditLog_AuditLogTemplateId">
+        <createIndex indexName="IX_tCromerrAuditLog_AuditLogTemplateId" tableName="tCromerrAuditLog">
+            <column name="AuditLogTemplateId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tAuditLogTemplate_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tAuditLogTemplate_Name" tableName="tAuditLogTemplate" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tAuditLogTemplate_TemplateType_EventCategory_EventType">
+        <addUniqueConstraint columnNames="TemplateType, EventCategory, EventType" constraintName="AK_tAuditLogTemplate_TemplateType_EventCategory_EventType" tableName="tAuditLogTemplate" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tSystemUnit_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tSystemUnit_Name" tableName="tSystemUnit" />
+    </changeSet>
+    <changeSet author="alan.liu" id="createIndex_IX_tSystemUnit_UnitDimensionId">
+        <createIndex indexName="IX_tSystemUnit_UnitDimensionId" tableName="tSystemUnit">
+            <column name="UnitDimensionId" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_AK_tUnitDimension_Name">
+        <addUniqueConstraint columnNames="Name" constraintName="AK_tUnitDimension_Name" tableName="tUnitDimension" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tInvitation_RecipientOrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RecipientOrganizationRegulatoryProgramId" baseTableName="tInvitation" constraintName="FK_tInvitation_tOrganizationRegulatoryProgram_RecipientOrganizationRegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tInvitation_SenderOrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="SenderOrganizationRegulatoryProgramId" baseTableName="tInvitation" constraintName="FK_tInvitation_tOrganizationRegulatoryProgram_SenderOrganizationRegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tAddress_JurisdictionId">
+        <addForeignKeyConstraint baseColumnNames="JurisdictionId" baseTableName="tAddress" constraintName="FK_tAddress_JurisdictionId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="JurisdictionId" referencedTableName="tJurisdiction" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tAddress_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tAddress" constraintName="FK_tAddress_OrgId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tAddress_AddressId_CreateOrganizationId">
+        <addUniqueConstraint columnNames="AddressId, CreatorOrganizationId" constraintName="UQ_tAddress_AddressId_CreateOrganizationId" tableName="tAddress" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addUniqueConstraint_UQ_tAddress_AddressId_CreatorOrganizationId">
+        <addUniqueConstraint columnNames="AddressId, CreatorOrganizationId" constraintName="UQ_tAddress_AddressId_CreatorOrganizationId" tableName="tAddress" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFogEquipment_EquipmentTypeId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="EquipmentTypeId,CreatorOrganizationId" baseTableName="tFogEquipment" constraintName="FK_tFogEquipment_EquipmentTypeLookupId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="EquipmentTypeId,CreatorOrganizationId" referencedTableName="tEquipmentType" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFogEquipment_FacilityId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="FacilityId,CreatorOrganizationId" baseTableName="tFogEquipment" constraintName="FK_tFogEquipment_FacilityId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId,CreatorOrganizationId" referencedTableName="tFogFacility" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tHauler_AddressId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="AddressId,CreatorOrganizationId" baseTableName="tHauler" constraintName="FK_tHauler_AddressId_OrgId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AddressId,CreatorOrganizationId" referencedTableName="tAddress" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramUser_InviterOrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="InviterOrganizationRegulatoryProgramId" baseTableName="tOrganizationRegulatoryProgramUser" constraintName="FK_tOrganizationRegulatoryProgramUser_tOrganizationRegulatoryProgram_InviterOrganizationRegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramUser_OrganizationRegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId" baseTableName="tOrganizationRegulatoryProgramUser" constraintName="FK_tOrganizationRegulatoryProgramUser_tOrganizationRegulatoryProgram_OrganizationRegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramUser_PermissionGroupId">
+        <addForeignKeyConstraint baseColumnNames="PermissionGroupId" baseTableName="tOrganizationRegulatoryProgramUser" constraintName="FK_tOrganizationRegulatoryProgramUser_tPermissionGroup" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PermissionGroupId" referencedTableName="tPermissionGroup" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramUser_UserProfileId">
+        <addForeignKeyConstraint baseColumnNames="UserProfileId" baseTableName="tOrganizationRegulatoryProgramUser" constraintName="FK_tOrganizationRegulatoryProgramUser_tUserProfile" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UserProfileId" referencedTableName="tUserProfile" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramExtractor_OrganizationRegulatoryProgramId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationRegulatoryProgramId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryProgramExtractor" constraintName="FK_tOrganizationRegulatoryProgramExtractor_CreatorOrgId_OrpId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationRegulatoryProgramId,RegulatorOrganizationId" referencedTableName="tOrganizationRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramExtractor_ExtractorId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="ExtractorId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryProgramExtractor" constraintName="FK_tOrganizationRegulatoryProgramExtractor_ExtractorId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ExtractorId,CreatorOrganizationId" referencedTableName="tExtractor" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tLookup_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tLookup" constraintName="FK_tLookup_OganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tLookup_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tLookup" constraintName="FK_tLookup_RegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tUserProfile_JurisdictionId">
+        <addForeignKeyConstraint baseColumnNames="JurisdictionId" baseTableName="tUserProfile" constraintName="FK_tUserProfile_tJurisdiction" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="JurisdictionId" referencedTableName="tJurisdiction" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tUserProfile_TermConditionId">
+        <addForeignKeyConstraint baseColumnNames="TermConditionId" baseTableName="tUserProfile" constraintName="FK_tUserProfile_tTermCondition" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="TermConditionId" referencedTableName="tTermCondition" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tUnit_OrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationId" baseTableName="tUnit" constraintName="FK_tUnit_tOrganization" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tUnit_SystemUnitId">
+        <addForeignKeyConstraint baseColumnNames="SystemUnitId" baseTableName="tUnit" constraintName="FK_tUnit_tSystemUnit" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SystemUnitId" referencedTableName="tSystemUnit" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgram_OrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationId" baseTableName="tOrganizationRegulatoryProgram" constraintName="FK_tOrganizationRegulatoryProgram_tOrganization_OrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgram_RegulatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="RegulatorOrganizationId" baseTableName="tOrganizationRegulatoryProgram" constraintName="FK_tOrganizationRegulatoryProgram_tOrganization_RegulatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgram_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tOrganizationRegulatoryProgram" constraintName="FK_tOrganizationRegulatoryProgram_tRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSiteAddress_AddressId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="AddressId,CreatorOrganizationId" baseTableName="tSiteAddress" constraintName="FK_tSiteAddress_AddressId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AddressId,CreatorOrganizationId" referencedTableName="tAddress" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSiteAddress_SiteId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="SiteId,CreatorOrganizationId" baseTableName="tSiteAddress" constraintName="FK_tSiteAddress_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SiteId,CreatorOrganizationId" referencedTableName="tSite" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationSetting_OrganizationId">
+        <addForeignKeyConstraint baseColumnNames="OrganizationId" baseTableName="tOrganizationSetting" constraintName="FK_tOrganizationSetting_tOrganization" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationSetting_SettingTemplateId">
+        <addForeignKeyConstraint baseColumnNames="SettingTemplateId" baseTableName="tOrganizationSetting" constraintName="FK_tOrganizationSetting_tSettingTemplate" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SettingTemplateId" referencedTableName="tSettingTemplate" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramModule_ModuleId">
+        <addForeignKeyConstraint baseColumnNames="ModuleId" baseTableName="tOrganizationRegulatoryProgramModule" constraintName="FK_tOrganizationRegulatoryProgramModule_tModule" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ModuleId" referencedTableName="tModule" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tContactNumber_ContactId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="ContactId,CreatorOrganizationId" baseTableName="tContactNumber" constraintName="FK_tContactNumber_ContactId_CreatorOrgId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ContactId,CreatorOrganizationId" referencedTableName="tContact" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramAddress_AddressId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="AddressId,CreatorOrganizationId" baseTableName="tOrganizationRegulatoryProgramAddress" constraintName="FK_tOrganizationRegulatoryProgramAddress_AddressId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AddressId,CreatorOrganizationId" referencedTableName="tAddress" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tContact_AddressId_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="AddressId,CreatorOrganizationId" baseTableName="tContact" constraintName="FK_tContact_AddressId_OrgId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AddressId,CreatorOrganizationId" referencedTableName="tAddress" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationRegulatoryProgramTag_TagId">
+        <addForeignKeyConstraint baseColumnNames="TagId" baseTableName="tOrganizationRegulatoryProgramTag" constraintName="FK_tOrganizationRegulatoryProgramTag_TagId" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="TagId" referencedTableName="tTag" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tCustomFieldDefinition_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tCustomFieldDefinition" constraintName="FK_tCustomFieldDefinition_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_AspNetUserRoles_RoleId">
+        <addForeignKeyConstraint baseColumnNames="RoleId" baseTableName="AspNetUserRoles" constraintName="FK_AspNetUserRoles_AspNetRoles" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="Id" referencedTableName="AspNetRoles" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tWasteType_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tWasteType" constraintName="FK_tWasteType_OganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tWasteType_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tWasteType" constraintName="FK_tWasteType_RegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSite_SiteId">
+        <addForeignKeyConstraint baseColumnNames="SiteId" baseTableName="tSite" constraintName="FK_tFogFacility_tSite" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="SiteId" referencedTableName="tSite" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSite_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tSite" constraintName="FK_tSite_tOrganization" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSysFrequency_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tSysFrequency" constraintName="FK_tSysFrequency_OganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSysFrequency_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tSysFrequency" constraintName="FK_tSysFrequency_RegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSettingTemplate_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tSettingTemplate" constraintName="FK_tSettingTemplate_tRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tAttachment_CreatorOrganizationId">
+        <addForeignKeyConstraint baseColumnNames="CreatorOrganizationId" baseTableName="tAttachment" constraintName="FK_tAttachment_CreatorOrganizationId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="OrganizationId" referencedTableName="tOrganization" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tOrganizationTypeRegulatoryProgram_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tOrganizationTypeRegulatoryProgram" constraintName="FK_tOrganizationTypeRegulatoryProgram_tRegulatoryProgram" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tExtractor_CleanFrequencyId">
+        <addForeignKeyConstraint baseColumnNames="CleanFrequencyId" baseTableName="tExtractor" constraintName="FK_tExtractor_FrequencyId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="FrequencyId" referencedTableName="tFrequency" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tFogFacilityAttachment_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tFogFacilityAttachment" constraintName="FK_tFogFacilityAttachment_RegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tEquipmentType_RegulatoryProgramId">
+        <addForeignKeyConstraint baseColumnNames="RegulatoryProgramId" baseTableName="tEquipmentType" constraintName="FK_tEquipmentType_RegulatoryProgramId" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="RegulatoryProgramId" referencedTableName="tRegulatoryProgram" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_AspNetRoleClaims_RoleId">
+        <addForeignKeyConstraint baseColumnNames="RoleId" baseTableName="AspNetRoleClaims" constraintName="FK_AspNetRoleClaims_AspNetRoles_RoleId" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="Id" referencedTableName="AspNetRoles" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tEmailAuditLog_AuditLogTemplateId">
+        <addForeignKeyConstraint baseColumnNames="AuditLogTemplateId" baseTableName="tEmailAuditLog" constraintName="FK_tEmailAuditLog_tAuditLogTemplate" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AuditLogTemplateId" referencedTableName="tAuditLogTemplate" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tPermissionGroupTemplatePermission_PermissionId">
+        <addForeignKeyConstraint baseColumnNames="PermissionId" baseTableName="tPermissionGroupTemplatePermission" constraintName="FK_tPermissionGroupTemplatePermission_tPermission" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PermissionId" referencedTableName="tPermission" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tPermissionGroupPermission_PermissionId">
+        <addForeignKeyConstraint baseColumnNames="PermissionId" baseTableName="tPermissionGroupPermission" constraintName="FK_tPermissionGroupPermission_tPermission" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="PermissionId" referencedTableName="tPermission" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tCromerrAuditLog_AuditLogTemplateId">
+        <addForeignKeyConstraint baseColumnNames="AuditLogTemplateId" baseTableName="tCromerrAuditLog" constraintName="FK_tCromerrAuditLog_tAuditLogTemplate" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="AuditLogTemplateId" referencedTableName="tAuditLogTemplate" validate="true" />
+    </changeSet>
+    <changeSet author="alan.liu" id="addForeignKeyConstraint_tSystemUnit_UnitDimensionId">
+        <addForeignKeyConstraint baseColumnNames="UnitDimensionId" baseTableName="tSystemUnit" constraintName="FK_tSystemUnit_tUnitDimension" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="UnitDimensionId" referencedTableName="tUnitDimension" validate="true" />
+    </changeSet>
+</databaseChangeLog>
