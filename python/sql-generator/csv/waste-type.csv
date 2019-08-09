@@ -1,0 +1,9 @@
+WasteType,WasteTypeDesc,CostPerUnit
+CA-IU,Conditionally Acceptable Industrial / Commercial Process,NULL
+CA-MS,Conditionally Acceptable Municipal Sludge,NULL
+CA-PC,Conditionally Acceptable Petroleum Contaminated,NULL
+FOG,FOG Liquid Waste,NULL
+HT,Holding Tank,NULL
+Leachate,Landfill Leachate from Anchorage Region and/or Mat-Su Landfills,NULL
+OTH,Other Type Waste,NULL
+SEP,Septic System Waste,NULL

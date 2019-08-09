@@ -1,0 +1,2 @@
+SELECT EquipName,EquipGroupID,AdjustBeforeMultiply,MultiplyFactor,AdjustAfterMultiply
+    FROM CTS_Data_AnchorageAK.dbo.tu_EquipTypes

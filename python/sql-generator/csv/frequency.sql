@@ -1,0 +1,2 @@
+SELECT FrequencyCode, TimesPerYear, DaysBtwnEvts, MonthsBtwnEvts, YearsBtwnEvts, ViewType, StartDate, EndDate, InView, CalendarView, EventsView, SortOrder
+    FROM CTS_Data_AnchorageAK.dbo.tu_Frequency

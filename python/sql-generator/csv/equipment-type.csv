@@ -1,0 +1,10 @@
+EquipName,EquipGroupID,AdjustBeforeMultiply,MultiplyFactor,AdjustAfterMultiply
+DEEP FRYER,0,0,0,0
+GARBAGE GRINDER,0,0,0,0
+Grease Interceptor,0,0,0,0
+Grease Trap,0,0,0,0
+GRILL,0,0,0,0
+ImportEquipType,0,0,0,0
+LINKO-4449-EquipType,0,0,0,0
+STOVE,0,0,0,0
+WOK,0,0,0,0

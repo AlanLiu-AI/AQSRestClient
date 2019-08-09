@@ -1,0 +1,91 @@
+LookupType,Code,CodeDescription
+ComplianceStatus,COMPLIANT,In compliance
+ComplianceStatus,CompliantAA,CompliantAA
+ComplianceStatus,NONCOMPLIANT,Not in compliance
+ComplianceStatus,PENDING,Pending compliance or undetermined
+ContactType,32,32
+ContactType,Authorized,Authorized Representative
+ContactType,AUTHORIZED REP,AUTHORIZED REP
+ContactType,AUTHORIZED REP deprecated1,AUTHORIZED REP
+ContactType,AUTHORIZED REP deprecated2,AUTHORIZED REP
+ContactType,Billing,Billing/Invoicing
+ContactType,Building Manager,Building manager
+ContactType,Building Manager GTK Real Estate,GTK Real Estate
+ContactType,Director,NULL
+ContactType,F_OWNER,Former owner
+ContactType,glorified busboy. OWNER,owner
+ContactType,glorified busboy/OWNER,owner
+ContactType,MAILING,Mailing address for Site
+ContactType,Mantinance,NULL
+ContactType,OC_FORMAN,NULL
+ContactType,Operations,Operations Forman
+ContactType,Operators,Operators
+ContactType,OWNER,Owner of Site
+ContactType,OWNERS Daughter,NULL
+ContactType,Property Manager,Property Manager
+ContactType,Responsible Party,NULL
+ContactType,Restaurant Manager,manager
+ContactType,Retired,Does not work there any more
+ContactType,Sampling,Sampling
+ContactType,Shuhao,NULL
+ContactType,Vice President,NULL
+EventCategory,AUTOSCHED,Any parent event that is created using AutoScheduler
+EventCategory,COC,Any event that relates to a Chain of Custody
+EventCategory,ENFORCEMENT,Any event that relates to an Enforcement.
+EventCategory,GENERIC,Any other events that do not directly relate to other categories.
+EventCategory,INSPECTION,Any event that relates to an Inspection.
+EventCategory,PERMIT,Any event that relates to a Permit.
+EventCategory,PUMPOUT,Any event that relates to an Extractor PumpOut
+EventCategory,SAMPLE,Any event that relates to a Sample.
+EventCategory,VIOLATION,Any event that relates to a Violation.
+ExtractorTypes,AGRU - Big Dipper,Big Dipper - Automatic Grease Recovery Unit
+ExtractorTypes,AGRU - Highland,Highland - Automatic Grease Recovery Unit
+ExtractorTypes,AGRU - Josam,Josam - Automatic Grease Recovery Unit
+ExtractorTypes,FLOOR_GI,Floor Grease Interceptor
+ExtractorTypes,GGX50,INTERCEPTOR
+ExtractorTypes,Grease Guardian X,INTERCEPTOR
+ExtractorTypes,Hydromechanical Grease Interceptor,NULL
+ExtractorTypes,Hydromechanical Grease Interceptor GT-1,NULL
+ExtractorTypes,ImportExtractor,ImportExtractor
+ExtractorTypes,LINKO-4449-ExtractorName,LINKO-4449-ExtractorName
+ExtractorTypes,OIG_CONCRETE,Concrete Outdoor Inground Grease Interceptor
+ExtractorTypes,OIG_FIBERGLASS,Fiberglass Outdoor Inground Grease Interceptor
+ExtractorTypes,OIG_STEEL,Steel Outdoor Inground Grease Interceptor
+ExtractorTypes,OTHER,Other type of Grease Interceptor
+ExtractorTypes,Schier,NULL
+ExtractorTypes,Service Line,Service Connection and Service Extension
+ExtractorTypes,Waiting on user survey,NULL
+InspectionMaintenanceResult,Annual inspection-control manhole,NULL
+InspectionMaintenanceResult,COMPLETE,Log is Complete
+InspectionMaintenanceResult,Don’t know,When asked they have no idea were it is kept
+InspectionMaintenanceResult,INCOMPLETE,Log was not complete
+InspectionMaintenanceResult,MISSING,Log was missing
+InspectionMaintenanceResult,N/A,NULL
+InspectionMaintenanceResult,NA,Not Applicable
+NoteType,AfterHoursCO,NULL
+NoteType,connect/disconnect,bldg #778 connection notice
+NoteType,DDF,Data Disclosure Form
+NoteType,Discharge,NULL
+NoteType,e-mail,EMAIL
+NoteType,FACILITY_DESC,Overall description of the Facility
+NoteType,Fact Sheet,NULL
+NoteType,File Path,File Path of all documents in the Y drive
+NoteType,HazMat,Hazardous materials
+NoteType,IMP,Industrial Management Practice Plan
+NoteType,Investigation,Event Details
+NoteType,NSC,Non Significant Commercial Business
+NoteType,Other Permits,List all of municipal permits associated with this Industry
+NoteType,PERMIT,Permit document and notes for the facility.
+NoteType,Phone Call,NULL
+NoteType,Plant Layout,Describe plant layout and attach layout diagram in the Document Link
+NoteType,Pretreatment,Type and capacity of treatment systems used at the Industry.
+NoteType,Process,Description of each of the Process(es) that takes place at this Industry
+NoteType,Products,Description of the types of Products produced at this Industry
+NoteType,Pumping,Who pumps there interceptor
+NoteType,RawMats,Identify the materials and chemicals used by the Industry.  Also include approximate quantity that will be kept on hand.
+NoteType,REPORT,Incident Report
+NoteType,Sampling,Cooling Tower Sampling for both Plants
+NoteType,SOP,Description of the operational management and standard operating procedures used by the facility.
+NoteType,Spill,"Document how and where chemicals are stored, the location of clean-up and safety equipment, spill procedures, employee spill response training, and who to contact in the event of a spill."
+NoteType,STATUS,Information regarding the current status of this facility.
+NoteType,ToxOrgMgt,"Written plan submitted by industrial users in accordance with some categorical pretreatment standards as an alternative to TTO monitoring which specifies the toxic organic compounds used, the method of disposal used, and procedures for assuring that toxic organics do not routinely spill or leak into wastewater discharged to the POTW."
